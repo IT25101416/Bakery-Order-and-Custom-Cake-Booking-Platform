@@ -2,9 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Cake Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('pic.jpg');
+            /* This ensures the image covers the entire screen without gaps */
+            background-size: cover;
+            /* This keeps the image in place when you scroll down the form */
+            background-attachment: fixed;
+            /* This centers the image so it looks good on your MacBook screen */
+            background-position: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .booking-container {
+            max-width: 600px;
+            margin: 50px auto;
+
+            /*'rgba' to make the white box slightly see-through */
+            background: rgba(255, 255, 255, 0.59);
+
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+        }
+    </style>
 </head>
 <body>
 
+<div class="container">
+    <div class="booking-container">
+        <h2 class="text-center mb-4">Customize Your Own Cake</h2>
+        <p class="text-muted text-center">Every Celebration Deserves a Perfect Cake</p>
+
+        <form action="/submit-custom-booking" method="POST">
+            <div class="mb-3">
+                <label for="cakeName" class="form-label">Cake Theme</label>
+                <input type="text" class="form-control" id="cakeName" name="name" placeholder="e.g.- Galaxy Theme Cake" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="flavor" class="form-label">Flavor Type</label>
+                <select class="form-select" id="flavor" name="flavor">
+                    <option value="Chocolate">Chocolate</option>
+                    <option value="Vanilla">Vanilla</option>
+                    <option value="Strawberry">Strawberry</option>
+                    <option value="Ribbon">Ribbon</option>
+                    <option value="Coffee">Coffee</option>
+                    <option value="Red Velvet">Red Velvet</option>
+                    <option value="Black Forest">Black Forest</option>
+                    <option value="Biscoff">Biscoff</option>
+                    <option value="Pineapple">Pineapple</option>
+                    <option value="Butterscotch">Butterscotch</option>
+
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="occasion" class="form-label">Occasion</label>
+                <input type="text" class="form-control" id="occasion" name="occasion" placeholder="e.g., 21st Birthday" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="instructions" class="form-label">Special Instructions</label>
+                <textarea class="form-control" id="instructions" name="specialInstruction" rows="3" placeholder="Describe your design, colors, or message here..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Submit Custom Request</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
