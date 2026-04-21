@@ -1,0 +1,74 @@
+/* --- Global Styles --- */
+:root {
+    --primary: #FF85A1;
+    --secondary: #FDFCF0;
+    --dark: #4A2C2A;
+    --white: #ffffff;
+}
+
+body {
+    background-color: var(--secondary);
+    color: var(--dark);
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    margin: 0;
+}
+
+/* --- Navigation Bar --- */
+.navbar {
+    background-color: var(--white);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    margin-left: 20px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+/* --- Bakery Cards (For Cake List) --- */
+.cake-card {
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.cake-card:hover {
+    transform: translateY(-10px);
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+/* --- Buttons --- */
+.btn-bakery {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-bakery:hover {
+    background-color: #ff6384;
+}
