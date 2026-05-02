@@ -19,7 +19,9 @@ public class Order extends AbstractOrder {
     }
 
     @Override
-    public double calculateTotal() { return quantity * pricePerUnit; }
+    public double calculateTotal() {
+        return quantity * pricePerUnit;
+    }
 
     @Override
     public String getOrderSummary() {
@@ -28,7 +30,9 @@ public class Order extends AbstractOrder {
     }
 
     @Override
-    public String getOrderType() { return "Standard Order"; }
+    public String getOrderType() {
+        return "Standard Order";
+    }
 
     // All getters and setters here (see full code below)
 
