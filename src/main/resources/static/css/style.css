@@ -1,0 +1,72 @@
+/* --- CSS Variables & Branding --- */
+:root {
+    --primary: #FF85A1;
+    --dark: #4A2C2A;
+    --light: #FDFCF0;
+}
+
+/* --- General Body Setup --- */
+body {
+    /* Branding Fallback */
+    background-color: var(--light);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* Background Image Logic (Image 1) */
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
+                url('../roman-matveev-dMRpKRGv0-0-unsplash.jpg');
+
+    background-size: cover;
+    background-position: right center; /* Keeps the tarts visible on the right */
+    background-attachment: fixed;      /* Parallax-style scrolling */
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+/* --- Navigation --- */
+.navbar {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(5px);
+}
+
+/* --- Component 04: Glassmorphism Cards --- */
+.card {
+    background: rgba(255, 255, 255, 0.85) !important; /* Semi-transparent */
+    backdrop-filter: blur(8px);                        /* Frosted glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 20px !important;                    /* Smooth rounded corners */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);       /* Soft depth */
+}
+
+/* --- Typography & Contrast --- */
+h2, h5, .form-label {
+    color: var(--dark) !important; /* High contrast for readability */
+    font-weight: 600;
+}
+
+/* --- Buttons --- */
+.btn-primary {
+    background-color: var(--primary) !important;
+    border: none !important;
+    border-radius: 25px !important;
+    padding: 10px 25px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #e6738f !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 133, 161, 0.4);
+}
+
+/* --- Forms --- */
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem rgba(255, 133, 161, 0.25);
+}
