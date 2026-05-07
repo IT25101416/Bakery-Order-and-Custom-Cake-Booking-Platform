@@ -30,4 +30,29 @@ public class FileHandler {
         }
     }
 
+    // READ - Read all lines from a file (Read)
+
+    public static List<String> readFromFile(String filename) {
+        List<String> lines = new ArrayList<>();
+        File file = new File(filename);
+
+        if (!file.exists()) {
+            System.out.println("[FileHandler] File not found: " + filename);
+            return lines; // Return empty list if file does not exist
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) { // Skip blank lines
+                    lines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("[FileHandler] Error reading file: " + e.getMessage());
+        }
+
+        return lines;
+    }
+
 
