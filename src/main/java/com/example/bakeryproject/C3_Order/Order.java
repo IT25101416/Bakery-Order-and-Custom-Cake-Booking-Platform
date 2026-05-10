@@ -43,4 +43,21 @@ public class Order extends AbstractOrder {
                 orderId, customerName, cakeType, quantity,
                 pricePerUnit, totalPrice, status, getOrderType());
     }
+
+    // Getters & Setters
+    public String getOrderId()                     { return orderId; }
+    public void   setOrderId(String orderId)       { this.orderId = orderId; }
+    public String getCustomerName()                { return customerName; }
+    public void   setCustomerName(String n)        { this.customerName = n; }
+    public String getCakeType()                    { return cakeType; }
+    public void   setCakeType(String c)            { this.cakeType = c; }
+    public int    getQuantity()                    { return quantity; }
+    public void   setQuantity(int q)               { this.quantity = q; this.totalPrice = calculateTotal(); }
+    public double getPricePerUnit()                { return pricePerUnit; }
+    public void   setPricePerUnit(double p)        { this.pricePerUnit = p; this.totalPrice = calculateTotal(); }
+    public double getTotalPrice()                  { return totalPrice; }
+    public void   setTotalPrice(double t)          { this.totalPrice = t; }
+    public String getStatus()                      { return status; }
+    public void   setStatus(String status)         { this.status = status; }
+}
 }

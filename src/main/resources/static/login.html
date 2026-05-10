@@ -2,9 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login - Bakery Platform</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', sans-serif; background: #fff8f0; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .card { background: white; padding: 36px; border-radius: 16px; box-shadow: 0 6px 24px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { color: #d4622a; margin-bottom: 6px; font-size: 1.6em; }
+        .sub { color: #888; font-size: 13px; margin-bottom: 24px; }
+        label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 4px; }
+        input { width: 100%; padding: 11px 14px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 16px; font-size: 14px; }
+        input:focus { outline: none; border-color: #d4622a; }
+        .btn { width: 100%; padding: 12px; background: #d4622a; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .btn:hover { background: #b8511f; }
+        .error { background: #fde8e8; color: #c0392b; padding: 10px; border-radius: 8px; margin-bottom: 16px; font-size: 13px; display: none; }
+        .link { text-align: center; margin-top: 16px; font-size: 13px; }
+        .link a { color: #d4622a; text-decoration: none; }
+        .admin-link { text-align: center; margin-top: 10px; font-size: 12px; }
+        .admin-link a { color: #888; text-decoration: none; }
+    </style>
 </head>
 <body>
-
+<div class="card">
+    <h2>🎂 Welcome Back</h2>
+    <p class="sub">Login to your account</p>
+    <div class="error" id="errBox">❌ Invalid username or password.</div>
+    <form action="/login-customer" method="POST">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter username" required>
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password" required>
+        <button type="submit" class="btn">Login</button>
+    </form>
+    <div class="link"><p>New user? <a href="register.html">Register here</a></p></div>
+    <div class="admin-link"><a href="admin-login.html">Admin Login →</a></div>
+</div>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('error')) document.getElementById('errBox').style.display = 'block';
+</script>
 </body>
 </html>
