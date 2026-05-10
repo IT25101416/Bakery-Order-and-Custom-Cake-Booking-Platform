@@ -55,4 +55,53 @@ public class FileHandler {
         return lines;
     }
 
+    // OVERWRITE - Replace entire file content (used for Update & Delete)
+
+    public static void overwriteFile(String filename, List<String> lines) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, false))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+            System.out.println("[FileHandler] File overwritten: " + filename);
+        } catch (IOException e) {
+            System.err.println("[FileHandler] Error overwriting file: " + e.getMessage());
+        }
+    }
+
+    // SEARCH - Find a line by a keyword/ID in a file
+
+    public static String findLineById(String filename, String id) {
+        List<String> lines = readFromFile(filename);
+        for (String line : lines) {
+            if (line.startsWith(id + ",")) {
+                return line;
+            }
+        }
+        return null; // Not found
+    }
+
+
+    // DELETE - Remove a specific line by Order ID
+
+    public static boolean deleteLineById(String filename, String id) {
+        List<String> lines    = readFromFile(filename);
+        List<String> filtered = new ArrayList<>();
+        boolean found = false;
+
+        for (String line : lines) {
+            if (line.startsWith(id + ",")) {
+                found = true; // Skip this line (delete it)
+            } else {
+                filtered.add(line);
+            }
+        }
+
+        if (found) {
+            overwriteFile(filename, filtered);
+        }
+        return found;
+    }
+
+}
 
