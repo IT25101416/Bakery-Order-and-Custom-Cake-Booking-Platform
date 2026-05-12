@@ -2,9 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Orders – Elegant Bakery</title>
+    <meta name="description" content="View and manage all customer orders in the Elegant Bakery admin portal.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
+<!-- Auth guard -->
+<script src="/js/auth.js"></script>
+<script>requireAdmin();</script>
+
+<!-- ✅ ADMIN NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="/admin-dashboard.html">🎂 Elegant Bakery</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                <li class="nav-item"><a class="nav-link" id="admin-nav-dashboard" href="/admin-dashboard.html">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" id="admin-nav-customers" href="/customer-list.html">Customers</a></li>
+                <li class="nav-item"><a class="nav-link" id="admin-nav-cakes" href="/cake-list.html">Cakes</a></li>
+                <li class="nav-item"><a class="nav-link active-page" id="admin-nav-orders" href="/order-list.html">Orders</a></li>
+                <li class="nav-item"><a class="nav-link" id="admin-nav-bookings" href="/booking-list.html">Bookings</a></li>
+                <li class="nav-item"><a class="nav-link" id="admin-nav-admins" href="/admin-panel.html">Admins</a></li>
+                <li class="nav-item"><a class="nav-link" id="admin-nav-reviews" href="/review-list.html">Reviews</a></li>
+                <li class="nav-item ms-lg-3">
+                    <a class="nav-link nav-logout" id="admin-nav-logout"
+                       href="#" onclick="logoutAdmin(); return false;">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container mt-5 mb-5 flex-grow-1">
+    <h2 class="mb-4 text-center">All Orders</h2>
+
+    <div class="card p-3">
+        <div class="card-body table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Cake ID</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                <tr><td colspan="4" class="text-center text-muted py-4">Loading orders…</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p class="mb-0">Bakery Order &amp; Custom Cake Booking Platform | SE1020 OOP Project | Group WD087</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/orders.js"></script>
 </body>
 </html>
