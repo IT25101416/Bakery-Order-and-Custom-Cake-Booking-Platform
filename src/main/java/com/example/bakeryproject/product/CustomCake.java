@@ -1,48 +1,49 @@
-package com.example.bakeryproject.product;
+package com.example.bakeryproject;
 
-// INHERITANCE: CustomCake inherits from the base Cake class
-public class CustomCake extends Cake {
+public class Customer {
+    private String id;
+    private String name;
+    private String email;
+    private String password;
+    private String phone;
 
-    // ENCAPSULATION: Private variables to protect the data
-    private String cakeTheme;
-    private String customMessage;
-    private int layers;
-    private String pickupDate;
-    private String instructions;
-    private double customDesignFee;
+    public Customer() { }
 
-    // Constructor
-    public CustomCake(String cakeTheme, String flavor, double basePrice, String customMessage, int layers, String pickupDate, String instructions) {
-        super(cakeTheme, flavor, basePrice); // Passes theme, flavor, and base price to the parent Cake class
-        this.cakeTheme = cakeTheme;
-        this.customMessage = customMessage;
-        this.layers = layers;
-        this.pickupDate = pickupDate;
-        this.instructions = instructions;
-        this.customDesignFee = 25.00; // Flat fee for custom design
+    public Customer(String id, String name, String email, String password, String phone) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
     }
 
-    // POLYMORPHISM: Overriding the parent's calculateTotal method for dynamic custom pricing
-    @Override
-    public double calculateTotal() {
-        // Base Price + Design Fee + ($15 for every extra layer beyond the first)
-        double layerFee = (this.layers - 1) * 15.00;
-        return getBasePrice() + customDesignFee + layerFee;
+    public double getDiscount() {
+        return 0.0;
+    }
+
+    public String toFileString() {
+        return id + "," + name + "," + email + "," + password + "," + phone;
+    }
+
+    public static Customer fromFileString(String line) {
+        String[] data = line.split(",", -1);
+        String id = data.length > 0 ? data[0] : "";
+        String name = data.length > 1 ? data[1] : "";
+        String email = data.length > 2 ? data[2] : "";
+        String password = data.length > 3 ? data[3] : "";
+        String phone = data.length > 4 ? data[4] : "";
+        return new Customer(id, name, email, password, phone);
     }
 
     // Getters and Setters
-    public String getCakeTheme() { return cakeTheme; }
-    public void setCakeTheme(String cakeTheme) { this.cakeTheme = cakeTheme; }
-
-    public String getCustomMessage() { return customMessage; }
-    public void setCustomMessage(String customMessage) { this.customMessage = customMessage; }
-
-    public int getLayers() { return layers; }
-    public void setLayers(int layers) { this.layers = layers; }
-
-    public String getPickupDate() { return pickupDate; }
-    public void setPickupDate(String pickupDate) { this.pickupDate = pickupDate; }
-
-    public String getInstructions() { return instructions; }
-    public void setInstructions(String instructions) { this.instructions = instructions; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 }
