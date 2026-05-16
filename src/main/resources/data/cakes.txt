@@ -1,0 +1,3 @@
+C001,Chocolate Cake,Birthday,2500,5,chocolate cake.jpg
+C002,Ribbon Cake,party,3500,3,ribbon cake.jpg
+C003,Strawberry Cake,Birthday,4000,2,birthday cake.jpg

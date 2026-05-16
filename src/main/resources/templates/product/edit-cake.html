@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Cake</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<script th:src="@{/js/script.js}"></script>
 
+<div class="form-container">
+    <h2>Edit Cake</h2>
+    <form method="post" th:action="@{/products/update}"
+          th:object="${cake}">
+        <input readonly th:field="*{cakeId}" type="text">
+        <input required th:field="*{cakeName}" type="text">
+        <input required th:field="*{category}" type="text">
+        <input required step="0.01" th:field="*{price}" type="number">
+        <input required th:field="*{quantity}" type="number">
+        <button type="submit">Update Cake</button>
+    </form>
+</div>
 </body>
 </html>
