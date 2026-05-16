@@ -1,10 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Custom Booking - Sweet Crumbs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
+<body class="custom-cake-page">
 
+<nav class="shop-navbar custom-sticky-nav">
+    <div class="shop-logo">Sweet Crumbs</div>
+    <div class="shop-menu">
+        <a th:if="${session.role == 'ADMIN'}" href="/admin/dashboard">Dashboard</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/customer-home">Home</a>
+        <a href="/products/list">Cakes</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/orders/my-status">Order Status</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/my-bookings">My Bookings</a>
+        <a th:if="${session.role == 'ADMIN'}" href="/custom-bookings/list">Bookings</a>
+        <a href="/logout" th:if="${session.role != null}">Logout</a>
+    </div>
+</nav>
+
+<section class="custom-booking-layout single-form-layout">
+    <div class="custom-form-card">
+        <div class="form-title-row">
+            <div>
+                <p class="small-title dark-title">Custom Cake</p>
+                <h2>Edit Booking</h2>
+            </div>
+        </div>
+
+        <form th:action="@{/custom-bookings/update}" th:object="${booking}" method="post" class="custom-cake-form">
+            <label>
+                <span>Booking ID</span>
+                <input type="text" th:field="*{bookingId}" readonly>
+            </label>
+
+            <label>
+                <span>Customer Name</span>
+                <input type="text" th:field="*{customerName}" th:readonly="${session.role == 'CUSTOMER'}" required>
+            </label>
+
+            <label>
+                <span>Cake Size</span>
+                <select th:field="*{cakeSize}" required>
+                    <option value="Small">Small - 1kg</option>
+                    <option value="Medium">Medium - 2kg</option>
+                    <option value="Large">Large - 3kg+</option>
+                </select>
+            </label>
+
+            <label>
+                <span>Cake Flavour</span>
+                <select th:field="*{cakeFlavor}" required>
+                    <option value="Chocolate">Chocolate</option>
+                    <option value="Vanilla">Vanilla</option>
+                    <option value="Strawberry">Strawberry</option>
+                    <option value="Red Velvet">Red Velvet</option>
+                    <option value="Fruit">Fruit</option>
+                    <option value="Cheesecake">Cheesecake</option>
+                    <option value="Black Forest">Black Forest</option>
+                    <option value="Biscoff">Biscoff</option>
+                    <option value="Buttercream">Buttercream</option>
+                </select>
+            </label>
+
+            <label>
+                <span>Design Description</span>
+                <textarea th:field="*{designDescription}" required></textarea>
+            </label>
+
+            <label>
+                <span>Required Date</span>
+                <input type="date" th:field="*{date}" required>
+            </label>
+
+            <label th:if="${session.role == 'ADMIN'}">
+                <span>Status</span>
+                <select th:field="*{status}">
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Preparing">Preparing</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </label>
+
+            <div th:if="${session.role == 'CUSTOMER'}" class="booking-status-note">
+                Current Status: <strong th:text="*{status}">Pending</strong>
+            </div>
+
+            <button type="submit" class="primary-btn custom-submit-btn">Update Booking</button>
+        </form>
+    </div>
+</section>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
