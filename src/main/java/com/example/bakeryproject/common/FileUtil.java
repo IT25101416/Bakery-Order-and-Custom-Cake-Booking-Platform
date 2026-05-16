@@ -1,79 +1,45 @@
 package com.example.bakeryproject.common;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.*;
+import java.util.*;
 
 public class FileUtil {
 
-    // --- CREATE: Method to save data (Appends to the end of the file) ---
-    public static void saveToFile(String fileName, String data) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(data);
-            writer.newLine();
-            System.out.println("Data successfully saved to " + fileName);
+    public static void saveLine(String filePath, String line) {
+        try {
+            File file = new File(filePath);
+            file.getParentFile().mkdirs();
+
+            FileWriter writer = new FileWriter(file, true);
+            writer.write(line + System.lineSeparator());
+            writer.close();
         } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    // --- READ: Method to read all data ---
-    public static List<String> readFromFile(String fileName) {
-        List<String> records = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                records.add(line);
+    public static List<String> readLines(String filePath) {
+        try {
+            File file = new File(filePath);
+
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
             }
+
+            return Files.readAllLines(Paths.get(filePath));
         } catch (IOException e) {
-            System.out.println("Error reading from file: " + e.getMessage());
-        }
-        return records;
-    }
-
-    // --- UPDATE: Method to modify a specific line ---
-    public static void updateLine(String fileName, int lineNumber, String newData) {
-        List<String> lines = readFromFile(fileName); // Grab all current lines
-
-        // Ensure the line number actually exists to prevent crashes
-        if (lineNumber >= 0 && lineNumber < lines.size()) {
-            lines.set(lineNumber, newData); // Swap the old line for the new data
-
-            // Rewrite the entire file with the updated list
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-                for (String line : lines) {
-                    writer.write(line);
-                    writer.newLine();
-                }
-                System.out.println("Line " + lineNumber + " successfully updated.");
-            } catch (IOException e) {
-                System.out.println("Error updating file: " + e.getMessage());
-            }
-        } else {
-            System.out.println("Error: Line number " + lineNumber + " does not exist.");
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 
-    // --- DELETE: New Method to remove a specific line ---
-    public static void deleteLine(String fileName, int lineNumber) {
-        List<String> lines = readFromFile(fileName); // Grab all current lines
-
-        // Ensure the line exists
-        if (lineNumber >= 0 && lineNumber < lines.size()) {
-            lines.remove(lineNumber); // Erase the line from the list
-
-            // Rewrite the file without that line
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-                for (String line : lines) {
-                    writer.write(line);
-                    writer.newLine();
-                }
-                System.out.println("Line " + lineNumber + " successfully deleted.");
-            } catch (IOException e) {
-                System.out.println("Error deleting from file: " + e.getMessage());
-            }
-        } else {
-            System.out.println("Error: Line number " + lineNumber + " does not exist.");
+    public static void overwriteFile(String filePath, List<String> lines) {
+        try {
+            Files.write(Paths.get(filePath), lines);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
