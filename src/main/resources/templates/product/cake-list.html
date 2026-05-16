@@ -1,10 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Cakes - Sweet Crumbs Bakery</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
+<nav class="shop-navbar">
+    <div class="shop-logo">Sweet Crumbs</div>
+
+    <div class="shop-menu">
+        <a href="/admin/dashboard"
+           th:if="${session.role == 'ADMIN'}">Dashboard</a>
+        <a href="/customer
+home" th:if="${session.role == 'CUSTOMER'}">Home</a>
+        <a href="/items">Items</a>
+        <a href="/products/list">Cakes</a>
+        <a href="/savouries/list">Savouries</a>
+        <a href="/custom-bookings/new">Custom Cake</a>
+        <a href="/reviews/add" th:if="${session.role == 'CUSTOMER'}">Write
+            Review</a>
+        <a href="/custom
+bookings/list" th:if="${session.role == 'ADMIN'}">Bookings</a>
+        <a href="/reviews/admin"
+           th:if="${session.role == 'ADMIN'}">Reviews</a>
+        <a class="cart-nav-btn" href="/cart"
+           th:if="${session.role == 'CUSTOMER'}">
+            <span class="cart-icon">🛒</span>
+            Cart
+            <span class="cart-count" th:text="${session.cartCount != null ?
+session.cartCount : 0}">0</span>
+        </a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<section class="shop-hero">
+    <div class="shop-hero-content">
+        <p class="small-title">Fresh • Sweet • Handmade</p>
+        <h1>The Best Cakes For Your Loved Ones</h1>
+        <p>Order delicious cakes and book your custom cake designs
+            online.</p>
+
+        <div class="hero-buttons">
+            <a class="primary-btn" href="/custom-bookings/new">Book Custom
+                Cake</a>
+            <a class="secondary-btn" href="/reviews/add"
+               th:if="${session.role == 'CUSTOMER'}">Write Review</a>
+            <a class="secondary-btn" href="/custom
+bookings/list" th:if="${session.role == 'ADMIN'}">Booking Management</a>
+            <a class="secondary-btn" href="/products/add"
+               th:if="${session.role == 'ADMIN'}">Add New Cake</a>
+            <a class="secondary-btn" href="/savouries/add"
+               th:if="${session.role == 'ADMIN'}">Add New Savoury</a>
+        </div>
+    </div>
+</section>
+
+<section aria-label="Bakery item animation" class="moving-items-strip">
+    <div class="moving-track">
+        <span>🎂 Birthday Cakes</span>
+        <span>🍫 Chocolate Cakes</span>
+        <span>🧁 Cupcakes</span>
+        <span>✨ Custom Cakes</span>
+        <span>🍓 Strawberry Cakes</span>
+        <span>🎉 Party Orders</span>
+        <span>🎂 Birthday Cakes</span>
+        <span>🍫 Chocolate Cakes</span>
+        <span>🥐 Savouries</span>
+        <span>✨ Custom Cakes</span>
+    </div>
+</section>
+
+<section class="products-section">
+    <div class="section-header">
+        <div>
+            <h2>Our Cake Collection</h2>
+            <p>Choose your favourite cake from our bakery collection.</p>
+        </div>
+
+        <input class="shop-search" id="tableSearch" placeholder="Search cakes..."
+               type="text">
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card" th:each="cake : ${cakes}">
+            <div class="product-image">
+                <img alt="Cake Image"
+                     th:src="@{/images/{img}(img=${cake.image})}">
+            </div>
+
+            <div class="product-info">
+                <h3 th:text="${cake.cakeName}">Chocolate Cake</h3>
+                <p th:text="${cake.category}">Birthday Cake</p>
+
+                <div class="price-row">
+                    <strong>
+                        Rs. <span th:text="${cake.price}">2500</span>
+                    </strong>
+                </div>
+
+                <div class="product-actions">
+                    <a class="cart-add-btn"
+                       th:href="@{/cart/add/{id}(id=${cake.cakeId})}">Add To Cart</a>
+                    <a class="order-btn" href="/orders/place">Order Now</a>
+
+                    <a class="edit-small"
+                       th:href="@{/products/edit/{id}(id=${cake.cakeId})}"
+                       th:if="${session.role == 'ADMIN'}">Edit</a>
+
+                    <a class="delete-small delete"
+
+                       th:href="@{/products/delete/{id}(id=${cake.cakeId})}"
+                       th:if="${session.role == 'ADMIN'}">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
+
+edit-cake.html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
