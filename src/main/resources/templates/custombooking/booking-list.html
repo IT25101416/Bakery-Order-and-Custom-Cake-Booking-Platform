@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Admin Custom Booking Management</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
+<body class="custom-cake-page">
 
+<nav class="shop-navbar custom-sticky-nav">
+    <div class="shop-logo">Sweet Crumbs</div>
+    <div class="shop-menu">
+        <a th:if="${session.role == 'ADMIN'}" href="/admin/dashboard">Dashboard</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/customer-home">Home</a>
+        <a th:if="${session.role == null}" href="/">Home</a>
+        <a href="/products/list">Cakes</a>
+        <a href="/custom-bookings/new">New Booking</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/reviews/add">Write Review</a>
+        <a th:if="${session.role == 'ADMIN'}" href="/reviews/admin">Reviews</a>
+        <a href="/logout" th:if="${session.role != null}">Logout</a>
+    </div>
+</nav>
+
+<section class="review-list-hero">
+    <div>
+        <p class="small-title dark-title">Custom Cakes</p>
+        <h1>Custom Cake Bookings Management</h1>
+        <p>Admins can manage all custom cake booking details here.</p>
+    </div>
+</section>
+
+<div class="table-container">
+    <h2>All Custom Bookings</h2>
+    <input type="text" id="tableSearch" placeholder="Search here..." class="search-box">
+
+    <table>
+        <tr>
+            <th>Customer</th>
+            <th>Size</th>
+            <th>Flavor</th>
+            <th>Design</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="booking : ${bookings}">
+            <td th:text="${booking.customerName}"></td>
+            <td th:text="${booking.cakeSize}"></td>
+            <td th:text="${booking.cakeFlavor}"></td>
+            <td th:text="${booking.designDescription}"></td>
+            <td th:text="${booking.date}"></td>
+            <td th:text="${booking.status}"></td>
+            <td>
+                <a th:href="@{/custom-bookings/edit/{id}(id=${booking.bookingId})}" class="action-btn edit">Edit</a>
+                <a th:if="${session.role == 'ADMIN'}" th:href="@{/custom-bookings/delete/{id}(id=${booking.bookingId})}" class="action-btn delete">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
