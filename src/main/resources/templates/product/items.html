@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Items - Sweet Crumbs Bakery</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="shop-navbar">
+    <div class="shop-logo">Sweet Crumbs</div>
+    <div class="shop-menu">
+        <a th:if="${session.role == 'ADMIN'}" href="/admin/dashboard">Dashboard</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/customer-home">Home</a>
+        <a href="/items">Items</a>
+        <a href="/products/list">Cakes</a>
+        <a href="/savouries/list">Savouries</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/orders/my-status">Order Status</a>
+        <a th:if="${session.role == 'CUSTOMER'}" class="cart-nav-btn" href="/cart">
+            <span class="cart-icon">🛒</span>
+            Cart
+            <span class="cart-count" th:text="${session.cartCount != null ? session.cartCount : 0}">0</span>
+        </a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<section class="shop-hero">
+    <div class="shop-hero-content">
+        <p class="small-title">Bakery Menu</p>
+        <h1>Choose Cakes Or Savouries</h1>
+        <div class="hero-buttons">
+            <a href="/products/list" class="primary-btn">View Cakes</a>
+            <a href="/savouries/list" class="secondary-btn">View Savouries</a>
+            <a th:if="${session.role == 'ADMIN'}" href="/products/add" class="secondary-btn">Add Cake</a>
+            <a th:if="${session.role == 'ADMIN'}" href="/savouries/add" class="secondary-btn">Add Savoury</a>
+        </div>
+    </div>
+</section>
+
+<section class="item-showcase-section">
+    <div class="section-header center-header">
+        <div>
+            <p class="small-title dark-title">Item Categories</p>
+            <h2>Main Categories</h2>
+        </div>
+    </div>
+    <div class="item-showcase-grid">
+        <a href="/products/list" class="showcase-item">
+            <span class="item-icon">🎂</span>
+            <h3>Cakes</h3>
+            <p>Ready-made cakes and customized cakes.</p>
+        </a>
+        <a href="/savouries/list" class="showcase-item">
+            <span class="item-icon">🥐</span>
+            <h3>Savouries</h3>
+            <p>Rolls, buns, pastries, patties, and crispy bakery treats.</p>
+        </a>
+    </div>
+</section>
+
+<section class="products-section">
+    <div class="section-header">
+        <div>
+            <h2>Cakes</h2>
+        </div>
+    </div>
+    <div class="product-grid">
+        <div class="product-card" th:each="cake : ${cakes}">
+            <div class="product-image"><img src="/images/cake-default.jpg" alt="Cake Image"></div>
+            <div class="product-info">
+                <h3 th:text="${cake.cakeName}">Cake</h3>
+                <p th:text="${cake.category}">Category</p>
+                <div class="price-row"><strong>Rs. <span th:text="${cake.price}">0</span></strong></div>
+                <div class="product-actions">
+                    <a th:href="@{/cart/add/{id}(id=${cake.cakeId})}" class="cart-add-btn">Add To Cart</a>
+                    <a href="/orders/place" class="order-btn">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="products-section">
+    <div class="section-header">
+        <div>
+            <h2>Savouries</h2>
+        </div>
+    </div>
+    <div class="product-grid">
+        <div class="product-card" th:each="savoury : ${savouries}">
+            <div class="product-image"><span style="font-size: 76px;">🥐</span></div>
+            <div class="product-info">
+                <h3 th:text="${savoury.savouryName}">Savoury</h3>
+                <p th:text="${savoury.category}">Category</p>
+                <div class="price-row"><strong>Rs. <span th:text="${savoury.price}">0</span></strong></div>
+                <div class="product-actions">
+                    <a th:href="@{/cart/add-savoury/{id}(id=${savoury.savouryId})}" class="cart-add-btn">Add To Cart</a>
+                    <a href="/orders/place" class="order-btn">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
