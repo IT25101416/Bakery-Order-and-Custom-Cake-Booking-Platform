@@ -1,10 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sweet Crumbs Bakery - Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
+<nav class="shop-navbar">
+    <div class="shop-logo">Sweet Crumbs</div>
+
+    <div class="shop-menu">
+        <a href="/" class="active-link">Home</a>
+        <a href="#shop-items">Items</a>
+        <a href="#about-shop">About</a>
+        <a href="/customers/register">Register</a>
+        <a href="/login" class="login-nav-btn">Login</a>
+    </div>
+</nav>
+
+<section class="shop-hero public-home-hero">
+    <div class="shop-hero-content">
+        <p class="small-title">Welcome To Sweet Crumbs</p>
+        <h1>Fresh Cakes For Every Sweet Moment</h1>
+        <p>Browse our bakery collection, discover our best selling treats.</p>
+
+        <div class="hero-buttons">
+            <a href="/login" class="primary-btn">Login To Order</a>
+            <a href="/customers/register" class="secondary-btn">Create Account</a>
+        </div>
+    </div>
+</section>
+
+<section id="about-shop" class="shop-intro-section">
+    <div class="intro-copy">
+        <p class="small-title dark-title">Our Story</p>
+        <h2>A modern bakery offering fresh products and custom treats for every moment.</h2>
+        <p>Sweet Crumbs Bakery brings a modern bakery experience with handcrafted delights, cozy flavors, and beautifully made treats for every occasion.</p>
+
+        <div class="intro-stats">
+            <div>
+                <strong class="count-up" data-count="20">0</strong>
+                <span>Cake designs</span>
+            </div>
+            <div>
+                <strong class="count-up" data-count="24">0</strong>
+                <span>Hour booking</span>
+            </div>
+            <div>
+                <strong class="count-up" data-count="40">0</strong>
+                <span>Fresh tastes</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="intro-visual">
+        <img src="/images/cake-default.jpg" alt="Sweet Crumbs Bakery Cake">
+        <div class="intro-badge">Baked Fresh Daily</div>
+    </div>
+</section>
+
+<section id="shop-items" class="item-showcase-section">
+    <div class="section-header center-header">
+        <div>
+            <p class="small-title dark-title">Bakery Items</p>
+            <h2>Popular Items In Our Bakery</h2>
+            <p>Click Login to order cakes, book custom cakes, and manage your bakery account.</p>
+        </div>
+    </div>
+
+    <div class="item-showcase-grid">
+        <a href="/login" class="showcase-item">
+            <span class="item-icon">🎂</span>
+            <h3>In-store Cakes</h3>
+            <p>Beautifully designed cakes, freshly baked to make every party, celebration, and surprise extra special.</p>
+        </a>
+
+        <a href="/login" class="showcase-item">
+            <span class="item-icon">🥐</span>
+            <h3>Savouries</h3>
+            <p>Crispy bites, savory fillings, and freshly baked flavors made to satisfy every craving.</p>
+        </a>
+
+        <a href="/login" class="showcase-item">
+            <span class="item-icon">🍰</span>
+            <h3>Custom Cakes</h3>
+            <p>Send your design idea and book a cake made only for you.</p>
+        </a>
+
+        <a href="/login" class="showcase-item">
+            <span class="item-icon">🧁</span>
+            <h3>Cupcakes</h3>
+            <p>Small sweet treats for birthdays, events, and family moments.</p>
+        </a>
+    </div>
+</section>
+
+
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

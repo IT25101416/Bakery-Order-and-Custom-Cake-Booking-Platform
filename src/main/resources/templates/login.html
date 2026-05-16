@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login - Sweet Crumbs Bakery</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
+<body class="login-body">
 
+<div class="login-container">
+    <div class="login-card secret-login-card">
+        <button type="button" class="secret-admin-trigger" id="secretAdminTrigger" aria-label="Bakery secret access">🧁</button>
+
+        <div class="customer-login-panel" id="customerLoginPanel">
+            <h1>Welcome Back</h1>
+            <p>Customer login to continue to Sweet Crumbs Bakery</p>
+
+            <form th:action="@{/login}" method="post">
+                <input type="text" name="username" placeholder="Customer Email / Username" required>
+                <input type="password" name="password" placeholder="Customer Password" required>
+
+                <button type="submit">Customer Login</button>
+            </form>
+
+            <p class="error-text" th:if="${error}" th:text="${error}"></p>
+
+            <p class="form-text">
+                New customer?
+                <a href="/customers/register">Register here</a>
+            </p>
+
+            <p class="form-text small-login-links">
+                <a href="/">← Back to Home</a>
+            </p>
+
+        </div>
+
+        <div class="admin-secret-panel" id="adminSecretPanel" th:classappend="${secretVisible} ? ' show-secret-admin' : ''">
+            <div class="secret-badge">Secret Admin Access</div>
+            <h1>Admin Login</h1>
+            <p>Use this private staff entrance to manage the bakery system.</p>
+
+            <form th:action="@{/admin-secret-login}" method="post">
+                <input type="email" name="username" placeholder="Admin Email" required>
+                <input type="password" name="password" placeholder="Admin Password" required>
+
+                <button type="submit">Unlock Admin Dashboard</button>
+            </form>
+
+            <p class="error-text" th:if="${adminError}" th:text="${adminError}"></p>
+
+            <button type="button" class="back-customer-login" id="backCustomerLogin">← Customer Login</button>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
