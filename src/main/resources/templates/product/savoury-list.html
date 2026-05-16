@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Savouries - Sweet Crumbs Bakery</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
+<nav class="shop-navbar">
+    <div class="shop-logo">Sweet Crumbs</div>
+    <div class="shop-menu">
+        <a th:if="${session.role == 'ADMIN'}" href="/admin/dashboard">Dashboard</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/customer-home">Home</a>
+        <a href="/items">Items</a>
+        <a href="/products/list">Cakes</a>
+        <a href="/savouries/list">Savouries</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/orders/my-status">Order Status</a>
+        <a th:if="${session.role == 'CUSTOMER'}" class="cart-nav-btn" href="/cart">
+            <span class="cart-icon">🛒</span>
+            Cart
+            <span class="cart-count" th:text="${session.cartCount != null ? session.cartCount : 0}">0</span>
+        </a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<section class="shop-hero">
+    <div class="shop-hero-content">
+        <p class="small-title">Fresh • Crispy • Handmade</p>
+        <h1>Fresh Savouries For Every Craving</h1>
+        <p>Choose rolls, pastries, buns, patties, and other bakery savouries.</p>
+        <div class="hero-buttons">
+            <a href="/items" class="primary-btn">All Items</a>
+            <a th:if="${session.role == 'ADMIN'}" href="/savouries/add" class="secondary-btn">Add New Savoury</a>
+        </div>
+    </div>
+</section>
+
+<section class="products-section">
+    <div class="section-header">
+        <div>
+            <h2>Our Savoury Collection</h2>
+            <p>Order freshly baked savouries from our bakery collection.</p>
+        </div>
+        <input type="text" id="tableSearch" placeholder="Search savouries..." class="shop-search">
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card" th:each="savoury : ${savouries}">
+            <div class="product-image savoury-card-icon">
+                <span style="font-size: 76px;">🥐</span>
+            </div>
+            <div class="product-info">
+                <h3 th:text="${savoury.savouryName}">Chicken Roll</h3>
+                <p th:text="${savoury.category}">Rolls</p>
+                <div class="price-row">
+                    <strong>Rs. <span th:text="${savoury.price}">180</span></strong>
+                </div>
+                <div class="product-actions">
+                    <a th:href="@{/cart/add-savoury/{id}(id=${savoury.savouryId})}" class="cart-add-btn">Add To Cart</a>
+                    <a href="/orders/place" class="order-btn">Order Now</a>
+                    <a th:if="${session.role == 'ADMIN'}" th:href="@{/savouries/edit/{id}(id=${savoury.savouryId})}" class="edit-small">Edit</a>
+                    <a th:if="${session.role == 'ADMIN'}" th:href="@{/savouries/delete/{id}(id=${savoury.savouryId})}" class="delete-small delete">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
