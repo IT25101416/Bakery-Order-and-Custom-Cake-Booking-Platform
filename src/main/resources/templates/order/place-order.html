@@ -1,10 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Place Order</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
+<script th:src="@{/js/script.js}"></script>
+<nav class="shop-navbar">
+    <div class="shop-logo">Sweet Crumbs</div>
+    <div class="shop-menu">
+        <a th:if="${session.role == 'CUSTOMER'}" href="/customer-
+home">Home</a>
+        <a th:if="${session.role == 'ADMIN'}"
+           href="/admin/dashboard">Dashboard</a>
+        <a href="/items">Items</a>
+        <a href="/products/list">Cakes</a>
+        <a href="/savouries/list">Savouries</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/orders/my-
+status">Order Status</a>
+        <a href="/custom-bookings/new">Custom Cake</a>
+        <a th:if="${session.role == 'CUSTOMER'}" class="cart-nav-btn"
+           href="/cart">
+            <span class="cart-icon">🛒</span>
+            Cart
+            <span class="cart-count" th:text="${session.cartCount != null ?
+session.cartCount : 0}">0</span>
+        </a>
+        <a th:if="${session.role == 'ADMIN'}" href="/orders/list">Order
+            List</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+<div class="form-container">
+    <h2>Place Order</h2>
+    <p th:if="${cakeError}" class="error-message">Please select a valid
+        item from the list.</p>
+    <form th:action="@{/orders/place}" th:object="${order}" method="post">
+        <input type="text" th:field="*{customerName}" placeholder="Customer
+Name" th:readonly="${session.role == 'CUSTOMER'}" required>
+        <select id="cakeSelect" th:field="*{cakeName}" required>
+            <option value="" data-price="0">Select Item</option>
+            <optgroup label="Cakes">
+                <option th:each="cake : ${cakes}"
+                        th:value="${cake.cakeName}"
+                        th:text="${cake.cakeName + ' - Rs. ' + cake.price}"
+                        th:attr="data-price=${cake.price}">
+                    Cake Name - Rs. 0
+                </option>
+            </optgroup>
+            <optgroup label="Savouries">
+                <option th:each="savoury : ${savouries}"
+                        th:value="${savoury.savouryName}"
+                        th:text="${savoury.savouryName + ' - Rs. ' +
+savoury.price}"
+                        th:attr="data-price=${savoury.price}">
+                    Savoury Name - Rs. 0
+                </option>
+            </optgroup>
+        </select>
+        <input type="text" id="unitPrice" placeholder="Item Price"
+               readonly>
+        <input type="number" id="quantity" th:field="*{quantity}"
+               placeholder="Quantity" min="1" required>
+        <input type="text" id="totalPreview" placeholder="Total Price"
+               readonly>
+        <button type="submit">Place Order</button>
+    </form>
+</div>
+<script>
+    const cakeSelect = document.getElementById('cakeSelect');
+    const unitPrice = document.getElementById('unitPrice');
+    const quantity = document.getElementById('quantity');
+    const totalPreview = document.getElementById('totalPreview');
+    function updatePricePreview() {
+    const selectedOption =
+    cakeSelect.options[cakeSelect.selectedIndex];
+    const price = Number(selectedOption.getAttribute('data-price')) ||
+    0;
+    const qty = Number(quantity.value) || 0;
+    unitPrice.value = price > 0 ? 'Rs. ' + price.toFixed(2) : '';
+    totalPreview.value = price > 0 && qty > 0 ? 'Rs. ' + (price *
+    qty).toFixed(2) : '';
+    }
+    cakeSelect.addEventListener('change', updatePricePreview);
+    quantity.addEventListener('input', updatePricePreview);
+    updatePricePreview();
+</script>
 </body>
 </html>
