@@ -1,10 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add Review - Sweet Crumbs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
-
+<body class="review-page">
+<nav class="shop-navbar review-nav">
+    <div class="shop-logo">Sweet Crumbs</div>
+    <div class="shop-menu">
+        <a th:if="${session.role == 'CUSTOMER'}" href="/customerhome">Home</a>
+        <a th:if="${session.role == 'ADMIN'}"
+           href="/admin/dashboard">Dashboard</a>
+        <a href="/products/list">Cakes</a>
+        <a href="/custom-bookings/new">Custom Cake</a>
+        <a th:if="${session.role == 'CUSTOMER'}" class="cart-nav-btn"
+           href="/cart">
+            <span class="cart-icon">🛒</span>
+            Cart
+            <span class="cart-count" th:text="${session.cartCount != null ?
+session.cartCount : 0}">0</span>
+        </a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+<section class="review-hero-studio">
+    <div class="review-hero-copy">
+        <p class="small-title dark-title">Customer Love</p>
+        <h1>Share your Sweet Crumbs experience</h1>
+        <p>Your review helps our bakery improve cakes, custom designs,
+            delivery, and customer service.</p><div class="review-hero-actions">
+        <a href="/products/list" class="primary-btn">Shop Cakes</a>
+    </div>
+    </div>
+    <div class="review-animation-card" aria-label="Animated review card">
+        <div class="floating-heart heart-one">♥</div>
+        <div class="floating-heart heart-two">♥</div>
+        <div class="floating-heart heart-three">♥</div>
+        <div class="review-cake-plate">
+            <div class="review-cake-slice"></div>
+            <div class="review-cake-cream"></div>
+            <div class="review-cake-cherry"></div>
+        </div>
+        <div class="review-stars-showcase">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p>Fresh taste, beautiful design, happy customers.</p>
+    </div>
+</section>
+<section class="review-form-layout">
+    <div class="review-form-card">
+        <div class="form-title-row">
+            <div>
+                <p class="small-title dark-title">Add Review</p>
+                <h2 th:text="${pageTitle}">Write a Review</h2>
+            </div>
+        </div>
+        <form action="/reviews/save" method="post" class="review-modernform">
+            <div class="two-column-fields">
+                <label>
+                    Customer Name
+                    <input type="text" name="customerName"
+                           th:value="${review.customerName}" id="reviewCustomerInput"
+                           placeholder="Your name" required>
+                </label>
+            </div>
+            <label>
+                Cake Name
+                <input type="text" name="cakeName"
+                       th:value="${review.cakeName}" id="reviewCakeInput" placeholder="Example:
+Chocolate Birthday Cake" required>
+            </label>
+            <label>
+                Rating
+                <select name="rating" id="rating" required>
+                    <option value="">Select Rating</option>
+                    <option value="1" th:selected="${review.rating == 1}">1
+                        Star</option>
+                    <option value="2" th:selected="${review.rating == 2}">2
+                        Stars</option><option value="3" th:selected="${review.rating == 3}">3
+                    Stars</option>
+                    <option value="4" th:selected="${review.rating == 4}">4
+                        Stars</option>
+                    <option value="5" th:selected="${review.rating == 5}">5
+                        Stars</option>
+                </select>
+            </label>
+            <div class="live-stars" id="liveStars" aria-label="Rating
+preview">
+                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+            </div>
+            <p id="ratingMessage" class="rating-message"></p>
+            <label>
+                Comment
+                <textarea name="comment" id="reviewCommentInput"
+                          placeholder="Write your review here..." required
+                          th:text="${review.comment}"></textarea>
+            </label>
+            <div class="quick-review-chips">
+                <button type="button" data-review="The cake was fresh,
+soft, and beautifully decorated.">Fresh & beautiful</button>
+                <button type="button" data-review="My custom cake design
+came exactly how I wanted.">Perfect custom design</button>
+                <button type="button" data-review="Fast service, friendly
+team, and delicious taste.">Great service</button>
+            </div>
+            <button type="submit" class="primary-btn full-width-btn">Submit
+                Review</button>
+        </form>
+    </div>
+    <aside class="review-preview-card">
+        <p class="small-title dark-title">Live Preview</p>
+        <h2>Your review card</h2>
+        <div class="preview-review-box">
+            <div class="preview-avatar">SC</div>
+            <div>
+                <strong id="previewReviewer">Customer Name</strong>
+                <span id="previewCakeName">Cake Name</span>
+            </div>
+        </div>
+        <div class="preview-stars" id="previewStars">★★★★★</div>
+        <p id="previewReviewText">Your comment will appear here while you
+            type.</p>
+    </aside>
+</section>
+<section class="review-benefits-section">
+    <div class="inspiration-card">
+        <span>🎂</span>
+        <h3>Better Cakes</h3>
+        <p>Your feedback helps us improve flavour and cake quality.</p>
+    </div>
+    <div class="inspiration-card">
+        <span>✨</span><h3>Better Designs</h3>
+        <p>Custom cake reviews help us understand popular themes.</p>
+    </div>
+    <div class="inspiration-card">
+        <span>🚚</span>
+        <h3>Better Service</h3>
+        <p>We improve order handling and customer support from reviews.</p>
+    </div>
+</section>
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
