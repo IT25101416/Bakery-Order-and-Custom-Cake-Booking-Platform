@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Order List</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<script th:src="@{/js/script.js}"></script>
+
+<nav class="navbar">
+    <div class="logo">Sweet Crumbs Bakery</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/orders/place">Place Order</a>
+    </div>
+</nav>
+
+<div class="table-container">
+    <h2>Order List</h2>
+    <input type="text" id="tableSearch" placeholder="Search here..." class="search-box">
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.orderId}"></td>
+            <td th:text="${order.customerName}"></td>
+            <td th:text="${order.cakeName}"></td>
+            <td th:text="${order.quantity}"></td>
+            <td th:text="${order.totalPrice}"></td>
+            <td th:text="${order.status}"></td>
+            <td>
+                <a th:href="@{/orders/status/{id}(id=${order.orderId})}" class="action-btn edit">Status</a>
+                <a th:href="@{/orders/delete/{id}(id=${order.orderId})}" class="action-btn delete">Cancel</a>
+            </td>
+        </tr>
+    </table>
+</div>
 
 </body>
 </html>
