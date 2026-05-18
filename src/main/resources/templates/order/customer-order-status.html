@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Order Status</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<script th:src="@{/js/script.js}"></script>
+
+<nav class="shop-navbar">
+    <div class="shop-logo">Sweet Crumbs</div>
+    <div class="shop-menu">
+        <a href="/customer-home">Home</a>
+        <a href="/items">Items</a>
+        <a href="/products/list">Cakes</a>
+        <a href="/savouries/list">Savouries</a>
+        <a href="/orders/place">Order</a>
+        <a href="/orders/my-status">Order Status</a>
+        <a class="cart-nav-btn" href="/cart">
+            <span class="cart-icon">🛒</span>
+            Cart
+            <span class="cart-count" th:text="${session.cartCount != null ? session.cartCount : 0}">0</span>
+        </a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<div class="table-container order-status-page">
+    <h2>My Order Status</h2>
+
+    <div th:if="${ordered}" class="status-message success-box">
+        Your order was placed successfully. You can check the latest status here.
+    </div>
+
+    <form class="status-search-form" th:action="@{/orders/my-status}" method="get">
+        <input type="text" name="orderId" placeholder="Enter Order ID to check one order">
+        <button type="submit">Check Status</button>
+    </form>
+
+    <div th:if="${error}" class="status-message error-box" th:text="${error}"></div>
+
+    <div th:if="${searchedOrder != null}" class="single-status-card">
+        <p class="small-title dark-title">Searched Order</p>
+        <h3 th:text="${searchedOrder.cakeName}">Item Name</h3>
+        <p><strong>Order ID:</strong> <span th:text="${searchedOrder.orderId}"></span></p>
+        <p><strong>Quantity:</strong> <span th:text="${searchedOrder.quantity}"></span></p>
+        <p><strong>Status:</strong> <span class="status-pill" th:text="${searchedOrder.status}"></span></p>
+    </div>
+
+    <h3 class="status-subtitle">All My Orders</h3>
+
+    <div th:if="${#lists.isEmpty(orders)}" class="status-message">
+        You have not placed any orders yet.
+    </div>
+
+    <table th:if="${!#lists.isEmpty(orders)}">
+        <tr>
+            <th>Order ID</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Status</th>
+        </tr>
+
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.orderId}"></td>
+            <td th:text="${order.cakeName}"></td>
+            <td th:text="${order.quantity}"></td>
+            <td th:text="${order.totalPrice}"></td>
+            <td><span class="status-pill" th:text="${order.status}"></span></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
