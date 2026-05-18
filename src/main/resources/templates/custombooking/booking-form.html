@@ -1,10 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Custom Cake Studio - Sweet Crumbs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
+<body class="custom-cake-page">
 
+<nav class="shop-navbar custom-sticky-nav">
+    <div class="shop-logo">Sweet Crumbs</div>
+    <div class="shop-menu">
+        <a th:if="${session.role == 'ADMIN'}" href="/admin/dashboard">Dashboard</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/customer-home">Home</a>
+        <a th:if="${session.role == null}" href="/">Home</a>
+        <a href="/products/list">Cakes</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/orders/my-status">Order Status</a>
+        <a th:if="${session.role == 'CUSTOMER'}" href="/my-bookings">My Bookings</a>
+        <a th:if="${session.role == 'ADMIN'}" href="/custom-bookings/list">Bookings</a>
+        <a th:if="${session.role == 'CUSTOMER'}" class="cart-nav-btn" href="/cart">
+            <span class="cart-icon">🛒</span>
+            Cart
+            <span class="cart-count" th:text="${session.cartCount != null ? session.cartCount : 0}">0</span>
+        </a>
+        <a href="/logout" th:if="${session.role != null}">Logout</a>
+    </div>
+</nav>
+
+<section class="custom-hero-studio">
+    <div class="custom-hero-text">
+        <p class="small-title">Design Your Dream Cake</p>
+        <h1>Custom Cake Studio</h1>
+        <p>Choose your size, flavour, date, and design idea. We will turn your celebration cake into something sweet, beautiful, and unforgettable.</p>
+    </div>
+
+    <div class="custom-hero-cake" aria-label="Animated custom cake preview">
+        <div class="sparkle sparkle-one">✦</div>
+        <div class="sparkle sparkle-two">✧</div>
+        <div class="sparkle sparkle-three">✦</div>
+        <div class="cake-plate"></div>
+        <div class="cake-layer layer-bottom"></div>
+        <div class="cake-layer layer-middle"></div>
+        <div class="cake-layer layer-top"></div>
+        <div class="cake-candle candle-one"></div>
+        <div class="cake-candle candle-two"></div>
+        <div class="cake-flame flame-one"></div>
+        <div class="cake-flame flame-two"></div>
+    </div>
+</section>
+
+<section class="custom-booking-layout">
+    <div class="custom-preview-card">
+        <p class="small-title dark-title">Live Preview</p>
+        <h2>Your Cake Plan</h2>
+        <div class="preview-cake-box">
+            <div class="preview-cake-icon">🎂</div>
+        </div>
+
+        <div class="preview-details">
+            <div>
+                <span>Size</span>
+                <strong id="previewSize">Medium</strong>
+            </div>
+            <div>
+                <span>Flavour</span>
+                <strong id="previewFlavor">Chocolate</strong>
+            </div>
+            <div>
+                <span>Pickup Date</span>
+                <strong id="previewDate">Select date</strong>
+            </div>
+        </div>
+
+        <div class="design-preview-box">
+            <span>Design Idea</span>
+            <p id="previewDesign">Tell us your colours, theme, name, age, message, or photo cake idea.</p>
+        </div>
+    </div>
+
+    <div class="custom-form-card">
+        <div class="form-title-row">
+            <div>
+                <p class="small-title dark-title">Book Now</p>
+                <h2>Custom Cake Booking</h2>
+            </div>
+        </div>
+
+        <form th:action="@{/custom-bookings/new}" th:object="${booking}" method="post" class="custom-cake-form" id="customCakeForm">
+            <div class="two-column-fields">
+
+                <label>
+                    <span>Customer Name</span>
+                    <input type="text" th:field="*{customerName}" placeholder="Your name" th:readonly="${session.role == 'CUSTOMER'}" required>
+                </label>
+            </div>
+
+            <label>
+                <span>Cake Size</span>
+                <select th:field="*{cakeSize}" id="cakeSizeSelect">
+                    <option value="Small">Small - 1kg</option>
+                    <option value="Medium" selected>Medium - 2kg</option>
+                    <option value="Large">Large - 3kg+</option>
+                </select>
+            </label>
+
+            <label>
+                <span>Cake Flavour</span>
+                <select th:field="*{cakeFlavor}" id="cakeFlavorInput" required>
+                    <option value="Chocolate">Chocolate</option>
+                    <option value="Vanilla">Vanilla</option>
+                    <option value="Strawberry">Strawberry</option>
+                    <option value="Red Velvet">Red Velvet</option>
+                    <option value="Fruit">Fruit</option>
+                    <option value="Cheesecake">Cheesecake</option>
+                    <option value="Black Forest">Black Forest</option>
+                    <option value="Biscoff">Biscoff</option>
+                    <option value="Buttercream">Buttercream</option>
+                </select>
+            </label>
+
+            <label>
+                <span>Design Description</span>
+                <textarea th:field="*{designDescription}" id="designDescriptionInput" placeholder="Example: Pink birthday cake with flowers, gold topper, name: Shanaya, age: 21" required></textarea>
+            </label>
+
+            <label>
+                <span>Required Date</span>
+                <input type="date" th:field="*{date}" id="cakeDateInput" required>
+            </label>
+
+            <div class="quick-design-chips">
+                <button type="button" data-design="Birthday cake with name, age and colourful buttercream design.">Birthday</button>
+                <button type="button" data-design="Luxury chocolate drip cake with gold topper and elegant decoration.">Chocolate Drip</button>
+                <button type="button" data-design="Minimal white cake with flowers, pearls, and soft pastel colours.">Elegant</button>
+                <button type="button" data-design="Stylish cakes crafted with delicate detailing and a graceful, aesthetic finish.">Signature</button>
+            </div>
+
+            <button type="submit" class="primary-btn custom-submit-btn">Book My Custom Cake</button>
+        </form>
+    </div>
+</section>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
