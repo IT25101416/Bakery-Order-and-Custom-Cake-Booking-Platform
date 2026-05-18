@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Customer</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
+<script th:src="@{/js/script.js}"></script>
+<nav class="navbar">
+    <div class="logo">Sweet Crumbs Bakery</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/customers/list">Customer List</a>
+    </div>
+</nav>
+<div class="form-container">
+    <h2>Edit Customer</h2>
+    <form th:action="@{/customers/update}" th:object="${customer}"
+          method="post">
+        <input type="text" th:field="*{id}" placeholder="Customer ID" readonly>
+        <input type="text" th:field="*{name}" placeholder="Full Name" required>
+        <input type="email" th:field="*{email}" placeholder="Email Address"
+               required>
+        <input type="password" th:field="*{password}" placeholder="Password"
+               required>
+        <input type="text" th:field="*{phone}" placeholder="Phone Number"
+               required>
+        <button type="submit">Update Customer</button>
+    </form>
+</div>
 </body>
 </html>

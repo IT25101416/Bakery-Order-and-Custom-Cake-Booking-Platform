@@ -1,10 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Customer Home - Sweet Crumbs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<nav class="shop-navbar">
+    <div class="shop-logo">Sweet Crumbs</div>
+    <div class="shop-menu">
+        <a href="/customer-home">Home</a>
+        <a href="/items">Items</a>
+        <a href="/products/list">Cakes</a>
+        <a href="/savouries/list">Savouries</a>
+        <a href="/orders/place">Order</a>
+        <a href="/orders/my-status">Order Status</a>
+        <a href="/custom-bookings/new">Custom Cake</a>
+        <a href="/my-bookings">My Bookings</a>
+        <a href="/reviews/add">Review</a>
 
+        <a th:if="${session.role == 'CUSTOMER'}" class="cart-nav-btn" href="/cart">
+            <span class="cart-icon">🛒</span> Cart
+            <span class="cart-count" th:text="${session.cartCount != null ? session.cartCount : 0}">0</span>
+        </a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<section class="shop-hero">
+    <div class="shop-hero-content">
+        <p class="small-title">Welcome To Sweet Crumbs</p>
+        <h1>Order Fresh Cakes & Savouries Online</h1>
+        <p>View cakes, place orders, book custom cakes, and share your feedback.</p>
+        <div class="hero-buttons">
+            <a href="/items" class="primary-btn">Shop Items</a>
+            <a href="/custom-bookings/new" class="secondary-btn">Custom Booking</a>
+        </div>
+    </div>
+</section>
+
+<section class="shop-intro-section">
+    <div class="intro-copy">
+        <p class="small-title dark-title">Our Story</p>
+        <h2>Welcome to sweet crumbs bakery made for every celebration.</h2>
+        <p>We create freshly baked cakes, savouries and custom creations made for every celebration and sweet moment. Choose your favourite item, place an order, or book a delicious item in just a few clicks.</p>
+        <div class="intro-stats">
+            <div>
+                <strong class="count-up" data-count="25">0</strong>
+                <span>Cake designs</span>
+            </div>
+            <div>
+                <strong class="count-up" data-count="24">0</strong>
+                <span>Hour booking</span>
+            </div>
+            <div>
+                <strong class="count-up" data-count="40">0</strong>
+                <span>Fresh taste</span>
+            </div>
+        </div>
+    </div>
+    <div class="intro-visual">
+        <div class="cake-orbit orbit-one">Birthday</div>
+        <div class="cake-orbit orbit-two">Custom</div>
+        <img src="/images/cake-default.jpg" alt="Sweet Crumbs Bakery Cake">
+        <div class="intro-badge">Baked Fresh Daily</div>
+    </div>
+</section>
+
+<section id="shop-items" class="item-showcase-section">
+    <div class="section-header center-header">
+        <div>
+            <p class="small-title dark-title">Bakery Items</p>
+            <h2>Popular Items In Our Bakery</h2>
+        </div>
+    </div>
+    <div class="item-showcase-grid">
+        <a href="/products/list" class="showcase-item">
+            <span class="item-icon">🎂</span>
+            <h3>In-store Cakes</h3>
+            <p>Beautifully designed cakes, freshly baked to make every party, celebration, and surprise extra special.</p>
+        </a>
+        <a href="/savouries/list" class="showcase-item">
+            <span class="item-icon">🥐</span>
+            <h3>Savouries</h3>
+            <p>Crispy bites, savory fillings, and freshly baked flavors made to satisfy every craving.</p>
+        </a>
+        <a href="/custom-bookings/new" class="showcase-item">
+            <span class="item-icon">🍰</span>
+            <h3>Custom Cakes</h3>
+            <p>Send your design idea and book a cake made only for you.</p>
+        </a>
+        <a href="/products/list" class="showcase-item">
+            <span class="item-icon">🧁</span>
+            <h3>Cupcakes</h3>
+            <p>Small sweet treats for birthdays, events, and family moments.</p>
+        </a>
+    </div>
+</section>
+
+<section class="category-section">
+    <h2>What Would You Like To Do?</h2>
+    <div class="dashboard-grid">
+        <a href="/items" class="dashboard-card">View Items</a>
+        <a href="/products/list" class="dashboard-card">View Cakes</a>
+        <a href="/savouries/list" class="dashboard-card">View Savouries</a>
+        <a href="/orders/place" class="dashboard-card">Place Order</a>
+        <a href="/orders/my-status" class="dashboard-card">Check Order Status</a>
+        <a href="/custom-bookings/new" class="dashboard-card">Book Custom Cake</a>
+        <a href="/my-bookings" class="dashboard-card">My Custom Bookings</a>
+        <a href="/reviews/add" class="dashboard-card">Add Review</a>
+        <a href="/logout" class="dashboard-card">Logout</a>
+    </div>
+</section>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
