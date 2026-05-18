@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add Cake</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<script th:src="@{/js/script.js}"></script>
+
+<nav class="navbar">
+    <div class="logo">Sweet Crumbs Bakery</div>
+    <div>
+        <a href="/">Home</a>
+        <a href="/items">Items</a>
+        <a href="/products/list">Cake List</a>
+        <a href="/savouries/list">Savouries</a>
+    </div>
+</nav>
+
+<div class="form-container">
+    <h2>Add Cake</h2>
+
+    <form th:action="@{/products/add}" th:object="${cake}" method="post">
+        <input type="text" th:field="*{cakeId}" placeholder="Cake ID" required>
+        <input type="text" th:field="*{cakeName}" placeholder="Cake Name" required>
+        <input type="text" th:field="*{category}" placeholder="Category" required>
+        <input type="number" step="0.01" th:field="*{price}" placeholder="Price" required>
+
+        <button type="submit">Add Cake</button>
+    </form>
+</div>
 
 </body>
 </html>
