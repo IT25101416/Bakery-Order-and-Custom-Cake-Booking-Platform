@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Admin List</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<script th:src="@{/js/script.js}"></script>
+
+<nav class="navbar">
+    <div class="logo">Sweet Crumbs Bakery</div>
+    <div>
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/admin/register">Add Admin</a>
+    </div>
+</nav>
+
+<div class="table-container">
+    <h2>Admin List</h2>
+    <input type="text" id="tableSearch" placeholder="Search here..."
+           class="search-box">
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Permission</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="admin : ${admins}">
+            <td th:text="${admin.id}"></td>
+            <td th:text="${admin.name}"></td>
+            <td th:text="${admin.email}"></td>
+            <td th:text="${admin.permissionLevel}"></td>
+            <td>
+                <a th:href="@{/admin/delete/{id}(id=${admin.id})}"
+                   class="action-btn delete">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
 
 </body>
 </html>
