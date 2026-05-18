@@ -10,11 +10,11 @@
     <div class="shop-logo">Sweet Crumbs</div>
 
     <div class="shop-menu">
-        <a href="/" class="active-link">Home</a>
+        <a th:href="@{/}" class="active-link">Home</a>
         <a href="#shop-items">Items</a>
         <a href="#about-shop">About</a>
-        <a href="/customers/register">Register</a>
-        <a href="/login" class="login-nav-btn">Login</a>
+        <a th:href="@{/customers/register}">Register</a>
+        <a th:href="@{/login}" class="login-nav-btn">Login</a>
     </div>
 </nav>
 
@@ -22,11 +22,11 @@
     <div class="shop-hero-content">
         <p class="small-title">Welcome To Sweet Crumbs</p>
         <h1>Fresh Cakes For Every Sweet Moment</h1>
-        <p>Browse our bakery collection, discover our best selling treats.</p>
+        <p>Browse our bakery collection, discover our best selling treats, and book custom cakes easily.</p>
 
         <div class="hero-buttons">
-            <a href="/login" class="primary-btn">Login To Order</a>
-            <a href="/customers/register" class="secondary-btn">Create Account</a>
+            <a th:href="@{/login}" class="primary-btn">Login To Order</a>
+            <a th:href="@{/customers/register}" class="secondary-btn">Create Account</a>
         </div>
     </div>
 </section>
@@ -35,26 +35,32 @@
     <div class="intro-copy">
         <p class="small-title dark-title">Our Story</p>
         <h2>A modern bakery offering fresh products and custom treats for every moment.</h2>
-        <p>Sweet Crumbs Bakery brings a modern bakery experience with handcrafted delights, cozy flavors, and beautifully made treats for every occasion.</p>
+
+        <p>
+            Sweet Crumbs Bakery brings a modern bakery experience with handcrafted cakes,
+            fresh savouries, cozy flavors, and beautifully made treats for every occasion.
+        </p>
 
         <div class="intro-stats">
             <div>
                 <strong class="count-up" data-count="20">0</strong>
-                <span>Cake designs</span>
+                <span>Cake Designs</span>
             </div>
+
             <div>
                 <strong class="count-up" data-count="24">0</strong>
-                <span>Hour booking</span>
+                <span>Hour Booking</span>
             </div>
+
             <div>
                 <strong class="count-up" data-count="40">0</strong>
-                <span>Fresh tastes</span>
+                <span>Fresh Tastes</span>
             </div>
         </div>
     </div>
 
     <div class="intro-visual">
-        <img src="/images/cake-default.jpg" alt="Sweet Crumbs Bakery Cake">
+        <img th:src="@{/images/cake-default.jpg}" alt="Sweet Crumbs Bakery Cake">
         <div class="intro-badge">Baked Fresh Daily</div>
     </div>
 </section>
@@ -64,39 +70,77 @@
         <div>
             <p class="small-title dark-title">Bakery Items</p>
             <h2>Popular Items In Our Bakery</h2>
-            <p>Click Login to order cakes, book custom cakes, and manage your bakery account.</p>
+            <p>Login to order cakes, book custom cakes, and manage your bakery account.</p>
         </div>
     </div>
 
     <div class="item-showcase-grid">
-        <a href="/login" class="showcase-item">
+
+        <a th:href="@{/login}" class="showcase-item">
             <span class="item-icon">🎂</span>
             <h3>In-store Cakes</h3>
-            <p>Beautifully designed cakes, freshly baked to make every party, celebration, and surprise extra special.</p>
+            <p>
+                Beautifully designed cakes, freshly baked to make every party,
+                celebration, and surprise extra special.
+            </p>
         </a>
 
-        <a href="/login" class="showcase-item">
+        <a th:href="@{/login}" class="showcase-item">
             <span class="item-icon">🥐</span>
             <h3>Savouries</h3>
-            <p>Crispy bites, savory fillings, and freshly baked flavors made to satisfy every craving.</p>
+            <p>
+                Crispy bites, savory fillings, and freshly baked flavors made to
+                satisfy every craving.
+            </p>
         </a>
 
-        <a href="/login" class="showcase-item">
+        <a th:href="@{/login}" class="showcase-item">
             <span class="item-icon">🍰</span>
             <h3>Custom Cakes</h3>
-            <p>Send your design idea and book a cake made only for you.</p>
+            <p>
+                Send your design idea and book a cake made only for you.
+            </p>
         </a>
 
-        <a href="/login" class="showcase-item">
+        <a th:href="@{/login}" class="showcase-item">
             <span class="item-icon">🧁</span>
             <h3>Cupcakes</h3>
-            <p>Small sweet treats for birthdays, events, and family moments.</p>
+            <p>
+                Small sweet treats for birthdays, events, and family moments.
+            </p>
         </a>
+
     </div>
 </section>
 
+<footer class="footer">
+    <div class="footer-content">
+        <div>
+            <h3>Sweet Crumbs</h3>
+            <p>Fresh cakes, savouries, and custom cake bookings for every special moment.</p>
+        </div>
 
+        <div>
+            <h4>Quick Links</h4>
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/customers/register}">Register</a>
+        </div>
+
+        <div>
+            <h4>Contact</h4>
+            <p>Email: sweetcrumbs@gmail.com</p>
+            <p>Phone: +94 77 123 4567</p>
+            <p>Location: Colombo, Sri Lanka</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 Sweet Crumbs Bakery. All Rights Reserved.</p>
+    </div>
+</footer>
 
 <script th:src="@{/js/script.js}"></script>
+
 </body>
 </html>
