@@ -27,4 +27,3 @@ public class ItemController {
         return "product/items";
     }
 }
-
