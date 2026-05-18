@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Review Control</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="review-page">
+<nav class="shop-navbar review-nav">
+    <div class="shop-logo">Admin Reviews</div>
+    <div class="shop-menu">
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/reviews/list">Public Reviews</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+<section class="review-list-hero">
+    <div>
+        <p class="small-title dark-title">Admin Control</p>
+        <h1>Manage customer reviews</h1>
+        <p>Check customer feedback and provide effective responses.</p>
+    </div>
+</section>
+<div class="table-container animated-review-admin-table">
+    <h2>Manage Reviews</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Cake</th>
+            <th>Rating</th>
+            <th>Comment</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="review : ${reviews}">
+            <td th:text="${review.reviewId}"></td>
+            <td th:text="${review.customerName}"></td>
+            <td th:text="${review.cakeName}"></td>
+            <td><span class="admin-rating-badge" th:text="${review.rating +' ★'}"></span></td>
+            <td th:text="${review.comment}"></td>
+            <td>
+                <a th:href="@{/reviews/delete/{id}(id=${review.reviewId})}"
+                   class="action-btn delete">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
