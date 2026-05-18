@@ -6,6 +6,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Service class that handles all business logic related to orders.
+ * Responsible for adding, retrieving, updating, and deleting orders.
+ * Orders are stored and retrieved from a plain text file (orders.txt)
+ * using comma-separated values (CSV) format.
+ */
 @Service
 public class OrderService {
 
