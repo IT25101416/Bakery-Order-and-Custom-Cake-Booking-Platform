@@ -1,6 +1,11 @@
 package com.example.bakeryproject.order;
 
-
+/**
+ * Model class representing a customer order in the bakery system.
+ * Each order contains details such as order ID, customer name,
+ * selected item, quantity, total price, and current status.
+ * Orders are persisted to a text file in CSV format.
+ */
 public class Order {
     private String orderId;
     private String customerName;
