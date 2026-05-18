@@ -1,10 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Admin Dashboard - Sweet Crumbs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
+<body class="management-body">
 
+<nav class="shop-navbar management-navbar">
+    <div class="shop-logo">Sweet Crumbs Bakery</div>
+
+    <div class="shop-menu">
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/items">Items</a>
+        <a href="/products/list">Cakes</a>
+        <a href="/savouries/list">Savouries</a>
+        <a href="/custom-bookings/list">Bookings</a>
+        <a href="/reviews/admin">Reviews</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<section class="management-hero">
+    <div class="management-hero-text">
+        <p class="small-title">Admin Management Center</p>
+        <h1>Control Your Bakery From Here</h1>
+        <p>Manage cakes, savouries, orders, custom cake bookings,
+            customers, reviews, and admin accounts using this platform.</p>
+
+        <div class="hero-buttons">
+            <a href="/products/add" class="primary-btn">+ Add New Cake</a>
+            <a href="/savouries/add" class="secondary-btn">+ Add New
+                Savoury</a>
+            <a href="/custom-bookings/list" class="secondary-btn">View
+                Custom Bookings</a>
+        </div>
+    </div>
+
+    <div class="management-hero-visual" aria-label="Animated bakery
+management visual">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="floating-management-card card-one">🍰 Products</div>
+        <div class="floating-management-card card-two">🧾 Orders</div>
+        <div class="floating-management-card card-three">⭐ Reviews</div>
+        <div class="dashboard-cake-animation">
+            <div class="cake-top"></div>
+            <div class="cake-layer layer-one"></div>
+            <div class="cake-layer layer-two"></div>
+            <div class="cake-plate"></div>
+        </div>
+    </div>
+</section>
+
+<section class="management-stats-section">
+    <div class="management-stat-card">
+        <span>👥</span>
+        <h3 class="count-up" th:attr="data-count=${customerCount}"
+            th:text="${customerCount}">0</h3>
+        <p>Customers</p>
+    </div>
+    <div class="management-stat-card">
+        <span>🎂</span>
+        <h3 class="count-up" th:attr="data-count=${cakeCount}"
+            th:text="${cakeCount}">0</h3>
+        <p>Cake Items</p>
+    </div>
+    <div class="management-stat-card">
+        <span>🥐</span>
+        <h3 class="count-up" th:attr="data-count=${savouryCount}"
+            th:text="${savouryCount}">0</h3>
+        <p>Savoury Items</p>
+    </div>
+    <div class="management-stat-card">
+        <span>🍰</span>
+        <h3 class="count-up" th:attr="data-count=${bookingCount}"
+            th:text="${bookingCount}">0</h3>
+        <p>Custom Bookings</p>
+    </div>
+    <div class="management-stat-card">
+        <span>⭐</span>
+        <h3 class="count-up" th:attr="data-count=${reviewCount}"
+            th:text="${reviewCount}">0</h3>
+        <p>Reviews</p>
+    </div>
+</section>
+
+<section class="management-center-section">
+    <div class="section-title-row">
+        <div>
+            <p class="small-title">Management Sections</p>
+            <h2>Choose What You Want To Manage</h2>
+        </div>
+        <input type="text" id="managementSearch" class="management-search"
+               placeholder="Search management section...">
+    </div>
+
+    <div class="management-grid">
+        <a href="/customers/list" class="management-card" data
+           management="customers users profiles">
+            <div class="management-icon">👥</div>
+            <div>
+                <h3>Customer Management</h3>
+                <p>View, edit, and remove registered bakery customers.</p>
+                <span>Open Customers →</span>
+            </div>
+        </a>
+
+        <a href="/items" class="management-card" data-management="cakes
+savouries products menu items">
+            <div class="management-icon">🍰</div>
+            <div>
+                <h3>Item Management</h3>
+                <p>Add cakes and savouries, update prices, and manage
+                    bakery item categories.</p>
+                <span>Open Items →</span>
+            </div>
+        </a>
+
+        <a href="/orders/list" class="management-card" data
+           management="orders payments status">
+            <div class="management-icon">🧾</div>
+            <div>
+                <h3>Order Management</h3>
+                <p>Track customer orders, status, quantity, and total
+                    price.</p>
+                <span>Open Orders →</span>
+            </div>
+        </a>
+
+        <a href="/custom-bookings/list" class="management-card" data
+           management="custom cake bookings studio reservation">
+            <div class="management-icon">🎂</div>
+            <div>
+                <h3>Custom Cake Booking Management</h3>
+                <p>Review custom cake ideas, dates, sizes, and booking
+                    status.</p>
+                <span>Open Bookings →</span>
+            </div>
+        </a>
+
+        <a href="/reviews/admin" class="management-card" data
+           management="reviews feedback ratings wall">
+            <div class="management-icon">⭐</div>
+            <div>
+                <h3>Feedback & Review Management</h3>
+                <p>Read customer feedback and manage review wall
+                    content.</p>
+                <span>Open Reviews →</span>
+            </div>
+        </a>
+
+        <a href="/admin/list" class="management-card" data
+           management="admin staff employee secret login">
+            <div class="management-icon">🔐</div>
+            <div>
+                <h3>Admin Management</h3>
+                <p>Create staff accounts and control admin access.</p>
+                <span>Open Admins →</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<section class="management-flow-section">
+    <p class="small-title">Bakery Workflow</p>
+    <h2>Simple Daily Management Flow</h2>
+    <div class="management-flow">
+        <div class="flow-step"><b>1</b><span>Check Orders</span></div>
+        <div class="flow-line"></div>
+        <div class="flow-step"><b>2</b><span>Review Custom
+Cakes</span></div>
+        <div class="flow-line"></div>
+        <div class="flow-step"><b>3</b><span>Update Products</span></div>
+        <div class="flow-line"></div>
+        <div class="flow-step"><b>4</b><span>Reply To Reviews</span></div>
+    </div>
+</section>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
