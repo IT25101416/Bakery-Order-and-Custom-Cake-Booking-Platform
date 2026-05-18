@@ -8,11 +8,11 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/products")
-public class ItemController {
+public class CakeController {
 
     private final CakeService cakeService;
 
-    public ItemController(CakeService cakeService) {
+    public CakeController(CakeService cakeService) {
         this.cakeService = cakeService;
     }
 
