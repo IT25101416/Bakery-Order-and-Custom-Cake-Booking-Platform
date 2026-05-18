@@ -13,6 +13,12 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Spring MVC Controller that handles all HTTP requests related to orders.
+ * Maps to the base URL path "/orders".
+ * Manages order placement, listing, status updates, and deletion.
+ * Role-based access control is enforced using HttpSession attributes.
+ */
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
